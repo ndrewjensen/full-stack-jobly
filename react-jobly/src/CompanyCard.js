@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 
-function Company() {
+function CompanyCard() {
   return (
-    <div className="Company">
+    <div className="CompanyCard">
       company
     </div>
   )
 }
 
-export default Company;
+export default CompanyCard;

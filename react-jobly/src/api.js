@@ -18,6 +18,15 @@ class JoblyApi {
     "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
     "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
 
+    /** get anything available from backend API
+     * args:
+     * -endpoint: url excluding baseurl as string
+     * -data: obj of json data to include with request, default {}
+     * -method: api req method as string defaults to "get"
+     * 
+     * returns api response
+     */
+    
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
 

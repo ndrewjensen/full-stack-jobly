@@ -1,5 +1,10 @@
 import { useParams } from "react-router-dom";
 
+/** Homepage Component
+ * 
+ * RoutesList -> Homepage
+ */
+
 function Homepage() {
   return (
     <div className="Homepage">

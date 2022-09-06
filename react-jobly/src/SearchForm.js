@@ -1,9 +1,18 @@
 import { useParams } from "react-router-dom";
 
-function SearchForm() {
+/** SearchForm Component
+ * 
+ * Props: search()
+ * 
+ * state: data collected from form
+ * 
+ * {Companies, Jobs} -> SearchForm
+ */
+
+function SearchForm({search}) {
   return (
     <div className="SearchForm">
-      form
+      Searchform
     </div>
   )
 }

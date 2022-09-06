@@ -1,8 +1,15 @@
 import { useParams } from "react-router-dom";
-import Company from "./Company";
+import CompanyCard from "./CompanyCard";
 import SearchForm from "./SearchForm";
 import { useEffect, useState } from "react";
 import JoblyApi from "./api";
+
+/** Companies Component
+ * 
+ * state: companies
+ * 
+ * RoutesList -> Companies -> CompanyCard
+ */
 
 function Companies() {
   const [companies, setCompanies] = useState(
@@ -25,7 +32,8 @@ function Companies() {
   console.log("COMPANY DATA", companies.data);
   return (
     <div className="Companies">
-      {companies.data.map(company => <Company company={company} />)}
+      <SearchForm />
+      {companies.data.map(company => <CompanyCard company={company} />)}
     </div>
   );
 }
