@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
+
 import CompanyCard from "../CompanyCard/CompanyCard";
 import SearchForm from "../SearchForm/SearchForm";
-import { useEffect, useState } from "react";
+import Loading from "../Loading/Loading";
 import JoblyApi from "../api";
 
 /** Companies Component
@@ -23,15 +25,14 @@ function Companies() {
     }
     getCompanies();
   }, []);
-//TODO: add loading component
-//TODO: Key
-  if (companies.isLoading) return <div>Loading...</div>;
+
+  if (companies.isLoading) return <Loading />;
 
   return (
     <div className="Companies">
       <SearchForm />
       {companies.data.map((company) => (
-        <CompanyCard company={company} />
+        <CompanyCard key={company.handle} company={company} />
       ))}
     </div>
   );

@@ -1,9 +1,18 @@
-import { useParams } from "react-router-dom";
+/** CompanyCard Component
+ * 
+ * Props: company object with company details
+ * 
+ * Companies -> Company
+ */
 
-function CompanyCard() {
+function CompanyCard({company}) {
+  const {name, description, numEmployees, logoUrl, handle} = company
   return (
-    <div className="CompanyCard">
-      company
+    <div className="Job">
+     <h4>{name}</h4>
+     <p>{description}</p>
+     {/* <p>{numEmployees}</p> */}
+     {logoUrl && <img alt={handle} src={logoUrl}/>}
     </div>
   )
 }

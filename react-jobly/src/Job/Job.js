@@ -1,5 +1,3 @@
-import { useParams } from "react-router-dom";
-
 /** Job Component
  * 
  * state: companies
@@ -7,10 +5,14 @@ import { useParams } from "react-router-dom";
  * {Jobs, CompanyPage } -> Job
  */
 
-function Job() {
+function Job({job}) {
+  const {title, companyName, salary, equity} = job
   return (
     <div className="Job">
-     job
+     <h4>{title}</h4>
+     <h5>{companyName}</h5>
+     <p>{salary}</p>
+     <p>{equity}</p>
     </div>
   )
 }
