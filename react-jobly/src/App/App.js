@@ -20,11 +20,13 @@ function App() {
     isLoading: true
   });
 
-  async function registerUser(formData, path) {
+  async function authUser(formData, path) {
     // const { username, password, firstName, lastName, email } = formData;
     const resp =
       await JoblyApi.request(`auth/${path}`, formData, "post");
-    const token = jwt_decode(resp);
+      console.log("resp", resp)
+    const token = jwt_decode(resp.token);
+    console.log("token", token)
     localStorage.setItem("token", token); //localStorage.getItem("item")
     setUser({
       data: token.username,
@@ -36,9 +38,9 @@ function App() {
   return (
     <div className="App">
       <userContext.Provider value={{ username: user.data }}>
-        <BrowserRouter>
+        <BrowserRouter >
           <Nav />
-          <RoutesList />
+          <RoutesList auth={authUser} />
         </BrowserRouter>
       </userContext.Provider>
     </div>

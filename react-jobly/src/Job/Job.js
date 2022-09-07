@@ -1,20 +1,23 @@
 /** Job Component
- * 
+ *
  * state: companies
- * 
+ *
  * {Jobs, CompanyPage } -> Job
  */
 
-function Job({job}) {
-  const {title, companyName, salary, equity} = job
+function Job({ job }) {
+  const { title, companyName, salary, equity } = job;
   return (
-    <div className="Job">
-     <h4>{title}</h4>
-     <h5>{companyName}</h5>
-     <p>{salary}</p>
-     <p>{equity}</p>
+    <div className="Job card m-3">
+      <div className="card-body">
+        <h5>{title}</h5>
+        <p>{companyName}</p>
+        <small>
+          Salary: {salary} | Equity: {equity}
+        </small>
+      </div>
     </div>
-  )
+  );
 }
 
 export default Job;

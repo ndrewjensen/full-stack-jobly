@@ -12,15 +12,15 @@ import Profile from "../Profile/Profile";
  * App -> RoutesList -> { Companies, Jobs, Homepage CompanyPage}
  */
 
-function RoutesList() {
+function RoutesList({auth}) {
   return (
     <Routes className="RoutesList">
       <Route path="/" element={<Homepage />} />
       <Route path="/companies" element={<Companies />} />
       <Route path="/jobs" element={<Jobs />} />
       <Route path="/companies/:handle" element={<CompanyPage />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register auth={auth} />} />
+      <Route path="/login" element={<Login auth={auth} />} />
       <Route path="/profile/:username" element={<Profile />} />
       <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
