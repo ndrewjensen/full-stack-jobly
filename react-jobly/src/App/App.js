@@ -1,6 +1,9 @@
-import RoutesList from "./RoutesList";
-import Nav from "./Nav";
+
+import "./App.css";
+import RoutesList from "../RoutesList/RoutesList";
+import Nav from "../Nav/Nav";
 import { BrowserRouter } from "react-router-dom";
+
 
 /** App Component
  * 

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import Job from "./Job";
-import SearchForm from "./SearchForm";
+import Job from "../Job/Job";
+import SearchForm from "../SearchForm/SearchForm";
 
 /** Jobs Page Component
  * 

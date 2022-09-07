@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Companies from "./Companies";
-import Jobs from "./Jobs";
-import Homepage from "./Homepage";
-import CompanyPage from "./CompanyPage";
+import Companies from "../Companies/Companies";
+import Jobs from "../Jobs/Jobs";
+import Homepage from "../Homepage/Homepage";
+import CompanyPage from "../CompanyPage/CompanyPage";
 
 /** RoutesList Component
  *

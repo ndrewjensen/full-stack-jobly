@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import Job from "./Job";
+import Job from "../Job/Job";
 
 /** Company Detail Page Component
  * 
