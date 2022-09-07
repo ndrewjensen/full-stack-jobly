@@ -25,7 +25,6 @@ function SearchForm({ search }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     search(formData);
-    setFormData({});
   }
 
   return (

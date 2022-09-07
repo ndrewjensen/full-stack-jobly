@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 
-import CompanyCard from "../CompanyCard/CompanyCard";
 import SearchForm from "../SearchForm/SearchForm";
 import Loading from "../Loading/Loading";
 import JoblyApi from "../api";
-import { NavLink } from "react-router-dom";
 import CompaniesList from "../CompaniesList/CompaniesList";
 
 /** Companies Component
@@ -21,6 +19,7 @@ function Companies() {
   });
 
   useEffect(() => {
+    console.log("component mounts");
     async function getCompanies() {
       const resp = await JoblyApi.request("companies");
       setCompanies({ data: resp.companies, isLoading: false });
