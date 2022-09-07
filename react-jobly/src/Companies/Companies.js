@@ -4,6 +4,8 @@ import CompanyCard from "../CompanyCard/CompanyCard";
 import SearchForm from "../SearchForm/SearchForm";
 import Loading from "../Loading/Loading";
 import JoblyApi from "../api";
+import { NavLink } from "react-router-dom";
+import CompaniesList from "../CompaniesList/CompaniesList";
 
 /** Companies Component
  *
@@ -26,7 +28,7 @@ function Companies() {
     getCompanies();
   }, []);
 
-/** makes API call for companies name from form search term */
+  /** makes API call for companies name from form search term */
   async function search(formData) {
     const { searchTerm } = formData;
     const resp = await JoblyApi.request("companies", { name: searchTerm });
@@ -38,9 +40,7 @@ function Companies() {
   return (
     <div className="Companies">
       <SearchForm search={search} />
-      {companies.data.map((company) => (
-        <CompanyCard key={company.handle} company={company} />
-      ))}
+      <CompaniesList companies={companies.data} />
     </div>
   );
 }

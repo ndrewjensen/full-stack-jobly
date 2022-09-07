@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import Job from "../Job/Job";
+import JobsList from "../JobsList/JobsList";
 import JoblyApi from "../api";
 import Loading from '../Loading/Loading';
 
@@ -11,24 +11,26 @@ import Loading from '../Loading/Loading';
 
 function CompanyPage() {
   const params = useParams(); //returns an object
-  const [jobs, setjobs] = useState({
-    data: [],
+  const [company, setCompany] = useState({
+    data: {},
     isLoading: true,
   });
 
   useEffect(() => {
-    async function getjobs() {
+    async function getCompany() {
       const resp = await JoblyApi.request(`companies/${params.handle}`);
-      setjobs({ data: resp.jobs, isLoading: false });
+      setCompany({ data: resp.company, isLoading: false });
     }
-    getjobs();
+    getCompany();
   }, [params.handle]);
 
-  if (jobs.isLoading) return <Loading />;
+  if (company.isLoading) return <Loading />;
 
   return (
     <div className="CompanyPage">
-      {jobs.data.map(job => <Job key={job.id} job={job} />)}
+      <h3>{company.data.name}</h3>
+      <p>{company.data.description}</p>
+      <JobsList jobs={company.data.jobs} />
     </div>
   );
 }

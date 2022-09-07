@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import Job from "../Job/Job";
+import JobsList from "../JobsList/JobsList";
 import SearchForm from "../SearchForm/SearchForm";
-import Loading from '../Loading/Loading';
-import JoblyApi from '../api';
+import Loading from "../Loading/Loading";
+import JoblyApi from "../api";
 
 /** Jobs Page Component
  *
@@ -39,9 +39,7 @@ function Jobs() {
     <div className="jobs">
       {/* <Loading /> */}
       <SearchForm search={search} />
-      {jobs.data.map((job) => (
-        <Job key={job.id} job={job} />
-      ))}
+      <JobsList jobs={jobs.data} />
     </div>
   );
 }
