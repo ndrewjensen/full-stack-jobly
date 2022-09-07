@@ -3,6 +3,9 @@ import Companies from "../Companies/Companies";
 import Jobs from "../Jobs/Jobs";
 import Homepage from "../Homepage/Homepage";
 import CompanyPage from "../CompanyPage/CompanyPage";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
+import Profile from "../Profile/Profile";
 
 /** RoutesList Component
  *
@@ -16,6 +19,9 @@ function RoutesList() {
       <Route path="/companies" element={<Companies />} />
       <Route path="/jobs" element={<Jobs />} />
       <Route path="/companies/:handle" element={<CompanyPage />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/profile/:username" element={<Profile />} />
       <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
   );
