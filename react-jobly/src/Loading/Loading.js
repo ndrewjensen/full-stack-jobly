@@ -7,8 +7,9 @@ import './Loading.css'
 
 function Loading() {
   return (
-    <div className="spinner-border Loading" role="status">
-      <span className="sr-only">Loading...</span>
+    <div className="Loading" role="status">
+      <span className="sr-only spinner-border Loading"></span>
+      <span>Loading...</span>
     </div>
   );
 }

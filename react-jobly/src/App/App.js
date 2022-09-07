@@ -3,10 +3,11 @@ import "./App.css";
 import RoutesList from "../RoutesList/RoutesList";
 import Nav from "../Nav/Nav";
 import { BrowserRouter } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.css";
 
 
 /** App Component
- * 
+ *
  * App -> Companies -> { Nav, RoutesList}
  */
 

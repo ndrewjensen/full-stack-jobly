@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 /** Nav Component
- * 
+ *
  * App -> Nav
  */
 
