@@ -1,7 +1,18 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+/** Register Component
+ * 
+ * props: auth function to call in App
+ * 
+ * state: formData
+ * 
+ * RoutesList -> Register
+ */
 
 function Register({ auth }) {
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
 
   /** Update form input. */
   function handleChange(evt) {
@@ -16,6 +27,7 @@ function Register({ auth }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     auth(formData,"register");
+    navigate("/");
   }
 
   return (
@@ -36,6 +48,7 @@ function Register({ auth }) {
           <input
             id="password"
             name="password"
+            type="password"
             onChange={handleChange}
             value={formData.password || ""}
             aria-label="password"
