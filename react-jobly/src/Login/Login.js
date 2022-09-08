@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import userContext from "../userContext";
 
 /** Login Component
@@ -26,12 +26,13 @@ function Login({ auth }) {
   }
 
   /** Call parent function and clear form. */
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    auth("token", formData);
-    console.log(username);
-    if (username) return navigate("/");
+    await auth("auth/token", formData,"post");
+    setFormData({});
+
   }
+  if (username) return <Navigate to={"/"} />
 
   return (
     <div className="Login">

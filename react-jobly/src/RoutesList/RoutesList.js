@@ -21,7 +21,7 @@ function RoutesList({auth}) {
       <Route path="/companies/:handle" element={<CompanyPage />} />
       <Route path="/register" element={<Register auth={auth} />} />
       <Route path="/login" element={<Login auth={auth} />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={<Profile update={auth} />} />
       <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
   );

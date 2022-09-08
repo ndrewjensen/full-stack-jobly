@@ -53,8 +53,24 @@ class JoblyApi {
     let res = await this.request(`companies/${handle}`);
     return res.company;
   }
+  static async postOrPatch(endpoint, data = {}, method = "post") {
+    //FIXME: 
+    console.debug("API POST or Patch Call:", endpoint, data, method);
 
-  // obviously, you'll add a lot here ...
+    const url = `${BASE_URL}/${endpoint}`;
+    const headers = { Authorization: `Bearer ${JoblyApi.token}` };
+    const params = (method === "get")
+        ? data
+        : {};
+
+    try {
+      return (await axios({ url, method, data, params, headers })).data;
+    } catch (err) {
+      console.error("API Error:", err.response);
+      let message = err.response.data.error.message;
+      throw Array.isArray(message) ? message : [message];
+    }
+  }
 }
 
 export default JoblyApi;

@@ -26,7 +26,8 @@ function Register({ auth }) {
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
-    auth("register", formData);
+    auth("auth/register", formData, "post");
+    //FIXME: fix this navigate bug to match login behavior
     navigate("/");
   }
 

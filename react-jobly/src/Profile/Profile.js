@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import JoblyApi from "../api";
@@ -11,14 +10,15 @@ function Profile({ update }) {
     isLoading: true
   });
 
+
   const { username } = useContext(userContext);
   let success = false;
 
   useEffect(() => {
     async function getUserDetail() {
-      console.log("JOBLYAPIT token", JoblyApi.token);
+      // console.log("JOBLYAPIT token", JoblyApi.token);
       const resp = await JoblyApi.request(`users/${username}`);
-      console.log("RESP DATA", resp.user);
+      // console.log("RESP DATA", resp.user);
 
       setFormData({
         data: resp.user,
@@ -31,21 +31,25 @@ function Profile({ update }) {
   /** Update form input. */
   function handleChange(evt) {
     const input = evt.target;
+    
+    console.log("Profile handleChange() input",input)
     setFormData((formData) => ({
-      ...formData,
-      [input.name]: input.value,
+      ...formData, 
+      data: {
+        ...formData.data,
+        [input.name]: input.value},
     }));
   }
 
   /** Call parent function and clear form. */
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
     const json = {
-      firstname: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email
+      firstName: formData.data.firstName,
+      lastName: formData.data.lastName,
+      email: formData.data.email
     };
-    update(`patch/${username}`, json);
+    await update(`users/${username}`, json, "patch");
     success = <p>Updated Successfully</p>;
   }
 

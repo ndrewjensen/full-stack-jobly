@@ -27,9 +27,9 @@ function App() {
   });
 
   /** handle login and registration */
-  async function authUser(path, formData) {
+  async function authUser(path, formData, method) {
     // const { username, password, firstName, lastName, email } = formData;
-    const resp = await JoblyApi.request(`auth/${path}`, formData, "post");
+    const resp = await JoblyApi.request(`${path}`, formData, method);
     const decodedToken = jwt_decode(resp.token);
 
     localStorage.setItem("token", decodedToken); //localStorage.getItem("item")
