@@ -26,7 +26,7 @@ function Login({ auth }) {
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
-    auth(formData, "token");
+    auth("token",formData);
     navigate("/");
   }
 
@@ -52,6 +52,7 @@ function Login({ auth }) {
             onChange={handleChange}
             value={formData.password || ""}
             aria-label="password"
+            autoComplete="on"
           />
         </div>
 

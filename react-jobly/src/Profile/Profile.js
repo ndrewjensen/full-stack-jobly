@@ -67,6 +67,7 @@ function Profile({ update }) {
             id="password"
             name="password"
             type="password"
+            placeholder="don't type password!"
             onChange={handleChange}
             value={formData.password || ""}
             aria-label="password"

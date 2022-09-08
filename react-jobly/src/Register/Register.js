@@ -26,7 +26,7 @@ function Register({ auth }) {
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
-    auth(formData,"register");
+    auth("register",formData);
     navigate("/");
   }
 

@@ -1,4 +1,3 @@
-
 import "./App.css";
 import RoutesList from "../RoutesList/RoutesList";
 import Nav from "../Nav/Nav";
@@ -7,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import userContext from "../userContext";
 import JoblyApi from "../api";
 import jwt_decode from "jwt-decode";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 /** App Component
  *
@@ -16,30 +15,59 @@ import React, { useState } from "react";
 
 function App() {
   const [user, setUser] = useState({
-    data: {},
-    isLoading: true
+    data: "",
+    isLoading: true,
   });
 
-  async function authUser(formData, path) {
+
+  //TODO: We haven't needed this yet. remove if continues unused
+  const [token, setToken] = useState({
+    data: {},
+    isLoading: true,
+  });
+
+  /** handle login and registration */
+  async function authUser(path,formData) {
     // const { username, password, firstName, lastName, email } = formData;
-    const resp =
-      await JoblyApi.request(`auth/${path}`, formData, "post");
-      console.log("resp", resp)
-    const token = jwt_decode(resp.token);
-    console.log("token", token)
-    localStorage.setItem("token", token); //localStorage.getItem("item")
+    const resp = await JoblyApi.request(`auth/${path}`, formData, "post");
+    const decodedToken = jwt_decode(resp.token);
+    
+    localStorage.setItem("token", decodedToken); //localStorage.getItem("item")
+    
     setUser({
-      data: token.username,
-      isLoading: false
+      data: decodedToken.username,
+      isLoading: false,
     });
+    
+    setToken({
+      data: decodedToken,
+      isLoading: false,
+    });
+    
+    //update static token in JoblyAPI with user token
+    JoblyApi.token = decodedToken;
   }
 
+  /** logout function resets state of user and token, 
+   * clears local storage and token property in JoblyApi */
+  function logOut() {
+    setUser({
+      data: "",
+      isLoading: false,
+    });
+    setToken({
+      data: {},
+      isLoading: false,
+    });
+    localStorage.setItem("token", ""); //localStorage.getItem("item")
+    JoblyApi.token = "";
+  }
 
   return (
     <div className="App">
       <userContext.Provider value={{ username: user.data }}>
-        <BrowserRouter >
-          <Nav />
+        <BrowserRouter>
+          <Nav logOut={logOut}/>
           <RoutesList auth={authUser} />
         </BrowserRouter>
       </userContext.Provider>
