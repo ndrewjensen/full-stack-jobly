@@ -63,6 +63,7 @@ class JoblyApi {
    *
    * returns api response
    */
+  
   static async postOrPatch(endpoint, data = {}, params = {}, method = "post") {
     console.debug("API POST or Patch Call:", endpoint, data, params, method);
 

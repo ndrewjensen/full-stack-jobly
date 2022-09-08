@@ -17,6 +17,7 @@ function Profile({ update }) {
   useEffect(() => {
     async function getUserDetail() {
       // console.log("JOBLYAPIT token", JoblyApi.token);
+      console.log("Profile.js useEffect() username",username)
       const resp = await JoblyApi.request(`users/${username}`);
       // console.log("RESP DATA", resp.user);
 

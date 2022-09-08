@@ -52,6 +52,7 @@ function Register({ auth }) {
             id="password"
             name="password"
             type="password"
+            autoComplete="on"
             onChange={handleChange}
             value={formData.password || ""}
             aria-label="password"

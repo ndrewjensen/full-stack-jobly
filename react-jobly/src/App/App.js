@@ -25,28 +25,41 @@ function App() {
     isLoading: true,
   });
 
-  //
+  //check local storage: if a token is present update state with token data
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      console.log("LOCAL STORAGE", localStorage.getItem("token"));
+    const local = localStorage.getItem("token")
+    if (local) {
+      console.log("In if LOCAL STORAGE", local);
+      const decodedToken = jwt_decode(local);
+      console.log("decoded token", decodedToken);
+      
+      setUser({
+        data: decodedToken.username,
+        isLoading: false,
+      });
+  
+      setToken({
+        data: decodedToken,
+        isLoading: false,
+      });
     }
 
-  })
+  },[])
+
+  // localStorage.setItem("token", "");
   console.log("LOCAL STORAGE", localStorage.getItem("token"));
 
   /** handle login and registration */
   async function authUser(endpoint, formData, params, method) {
-    // const { username, password, firstName, lastName, email } = formData;
     const resp = await JoblyApi.postOrPatch(endpoint, formData, params, method);
     const decodedToken = jwt_decode(resp.token);
+    localStorage.setItem("token", resp.token); //localStorage.getItem("item")
 
-    localStorage.setItem("token", decodedToken); //localStorage.getItem("item")
-
+    //update states
     setUser({
       data: decodedToken.username,
       isLoading: false,
     });
-
     setToken({
       data: decodedToken,
       isLoading: false,
