@@ -3,27 +3,30 @@ import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import JoblyApi from "../api";
 import userContext from "../userContext";
-import Loading from "../Loading/Loading"
+import Loading from "../Loading/Loading";
 
 function Profile({ update }) {
   const [formData, setFormData] = useState({
-    data : {},
+    data: {},
     isLoading: true
   });
 
   const { username } = useContext(userContext);
   let success = false;
 
-  //FIXME: go to Api Model? Send token?
   useEffect(() => {
     async function getUserDetail() {
+      console.log("JOBLYAPIT token", JoblyApi.token);
       const resp = await JoblyApi.request(`users/${username}`);
+      console.log("RESP DATA", resp.user);
+
       setFormData({
-        data: resp.data,
-        isLoading: false});
+        data: resp.user,
+        isLoading: false
+      });
     }
     getUserDetail();
-  });
+  }, [username]);
 
   /** Update form input. */
   function handleChange(evt) {
@@ -37,16 +40,19 @@ function Profile({ update }) {
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
-    const json  ={ 
-      firstname: formData.firstName, 
+    const json = {
+      firstname: formData.firstName,
       lastName: formData.lastName,
       email: formData.email
-    }
-    update(`patch/${username}`,json);
+    };
+    update(`patch/${username}`, json);
     success = <p>Updated Successfully</p>;
   }
 
-  if (formData.isLoading) return <Loading />
+  if (formData.isLoading) return <Loading />;
+
+  // let { firstName, lastName, email } = formData.data;
+
   return (
     <div className="Profile">
       <form onSubmit={handleSubmit}>
@@ -57,20 +63,8 @@ function Profile({ update }) {
             disabled={true}
             name="username"
             onChange={handleChange}
-            value={formData.username || ""}
+            value={username|| ""}
             aria-label="username"
-          />
-        </div>
-        <div className="form-control">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="don't type password!"
-            onChange={handleChange}
-            value={formData.password || ""}
-            aria-label="password"
           />
         </div>
         <div className="form-control">
@@ -79,7 +73,7 @@ function Profile({ update }) {
             id="firstName"
             name="firstName"
             onChange={handleChange}
-            value={formData.firstName || ""}
+            value={formData.data.firstName || ""}
             aria-label="first name"
           />
         </div>
@@ -89,7 +83,7 @@ function Profile({ update }) {
             id="lastName"
             name="lastName"
             onChange={handleChange}
-            value={formData.lastName || ""}
+            value={formData.data.lastName || ""}
             aria-label="last name"
           />
         </div>
@@ -99,7 +93,7 @@ function Profile({ update }) {
             id="email"
             name="email"
             onChange={handleChange}
-            value={formData.email || ""}
+            value={formData.data.email || ""}
             aria-label="email"
           />
         </div>

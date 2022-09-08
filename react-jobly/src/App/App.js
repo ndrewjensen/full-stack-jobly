@@ -27,28 +27,29 @@ function App() {
   });
 
   /** handle login and registration */
-  async function authUser(path,formData) {
+  async function authUser(path, formData) {
     // const { username, password, firstName, lastName, email } = formData;
     const resp = await JoblyApi.request(`auth/${path}`, formData, "post");
     const decodedToken = jwt_decode(resp.token);
-    
+
     localStorage.setItem("token", decodedToken); //localStorage.getItem("item")
-    
+
     setUser({
       data: decodedToken.username,
       isLoading: false,
     });
-    
+
     setToken({
       data: decodedToken,
       isLoading: false,
     });
-    
+
     //update static token in JoblyAPI with user token
-    JoblyApi.token = decodedToken;
+    JoblyApi.token = resp.token;
+    console.log("JOBLY api token, on login", JoblyApi.token)
   }
 
-  /** logout function resets state of user and token, 
+  /** logout function resets state of user and token,
    * clears local storage and token property in JoblyApi */
   function logOut() {
     setUser({
@@ -63,11 +64,15 @@ function App() {
     JoblyApi.token = "";
   }
 
+  console.log("JOBLY API token", JoblyApi.token);
+  console.log("setUSER user", user);
+  console.log("TOKEN", token);
+
   return (
     <div className="App">
       <userContext.Provider value={{ username: user.data }}>
         <BrowserRouter>
-          <Nav logOut={logOut}/>
+          <Nav logOut={logOut} />
           <RoutesList auth={authUser} />
         </BrowserRouter>
       </userContext.Provider>

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import userContext from "../userContext";
 
 /** Login Component
  *
@@ -13,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 function Login({ auth }) {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
+  const { username } = useContext(userContext);
 
   /** Update form input. */
   function handleChange(evt) {
@@ -26,8 +28,9 @@ function Login({ auth }) {
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
-    auth("token",formData);
-    navigate("/");
+    auth("token", formData);
+    console.log(username);
+    if (username) return navigate("/");
   }
 
   return (

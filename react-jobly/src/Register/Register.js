@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /** Register Component
- * 
+ *
  * props: auth function to call in App
- * 
+ *
  * state: formData
- * 
+ *
  * RoutesList -> Register
  */
 
@@ -26,7 +26,7 @@ function Register({ auth }) {
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
-    auth("register",formData);
+    auth("register", formData);
     navigate("/");
   }
 
