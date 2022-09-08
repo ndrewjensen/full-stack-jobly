@@ -1,3 +1,4 @@
+import "./CompaniesList.css"
 import CompanyCard from "../CompanyCard/CompanyCard";
 import { NavLink } from "react-router-dom";
 

@@ -14,9 +14,7 @@ class JoblyApi {
   // Remember, the backend needs to be authorized with a token
   // We're providing a token you can use to interact with the backend API
   // DON'T MODIFY THIS TOKEN
-  static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+  static token = "";
 
   /** get anything available from backend API
    * args:
@@ -54,6 +52,8 @@ class JoblyApi {
     return res.company;
   }
 
+  //TODO: make smaller API methods like getCompany
+
   /** post or patch anything available from backend API
    * args:
    * -endpoint: url excluding baseurl as string
@@ -63,14 +63,12 @@ class JoblyApi {
    *
    * returns api response
    */
-  
+
   static async postOrPatch(endpoint, data = {}, params = {}, method = "post") {
     console.debug("API POST or Patch Call:", endpoint, data, params, method);
 
     const url = `${BASE_URL}/${endpoint}`;
-    console.log("LOCAL STORAGE", localStorage.getItem("token")[0]);
     const headers = { Authorization: `Bearer ${JoblyApi.token}` };
-    console.log("HEADER", headers);
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {

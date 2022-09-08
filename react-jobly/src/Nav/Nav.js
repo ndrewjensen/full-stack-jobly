@@ -16,23 +16,23 @@ function Nav({ logOut }) {
   }
 
   return (
-    <nav className="Nav">
-
+    <nav className="Nav nav">
+      <div className="Nav-home">
       <NavLink to="/" end>Jobly</NavLink>
-
+      </div>
       {username
         ?
-        <>
-          <NavLink to="/companies" end>Companies</NavLink>
+        <div className="Nav-right">
+          <NavLink to="/companies " end>Companies</NavLink>
           <NavLink to="/jobs" end>Jobs</NavLink>
           <NavLink to="/profile" end>Profile</NavLink>
           <NavLink to="/" onClick={handleLogOut} end>Log out {username}</NavLink>
-        </>
+        </div>
         :
-        <>
+        <div className="Nav-right">
           <NavLink to="/register" end>Sign Up</NavLink>
           <NavLink to="/login" end>Login</NavLink>
-        </>
+        </div>
       }
 
     </nav>

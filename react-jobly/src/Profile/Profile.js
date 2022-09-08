@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+
 import JoblyApi from "../api";
 import userContext from "../userContext";
 import Loading from "../Loading/Loading";
@@ -7,9 +7,8 @@ import Loading from "../Loading/Loading";
 function Profile({ update }) {
   const [formData, setFormData] = useState({
     data: {},
-    isLoading: true
+    isLoading: true,
   });
-
 
   const { username } = useContext(userContext);
   let success = false;
@@ -17,13 +16,13 @@ function Profile({ update }) {
   useEffect(() => {
     async function getUserDetail() {
       // console.log("JOBLYAPIT token", JoblyApi.token);
-      console.log("Profile.js useEffect() username",username)
+      console.log("Profile.js useEffect() username", username);
       const resp = await JoblyApi.request(`users/${username}`);
       // console.log("RESP DATA", resp.user);
 
       setFormData({
         data: resp.user,
-        isLoading: false
+        isLoading: false,
       });
     }
     getUserDetail();
@@ -38,7 +37,8 @@ function Profile({ update }) {
       ...formData,
       data: {
         ...formData.data,
-        [input.name]: input.value},
+        [input.name]: input.value,
+      },
     }));
   }
 
@@ -48,7 +48,7 @@ function Profile({ update }) {
     const json = {
       firstName: formData.data.firstName,
       lastName: formData.data.lastName,
-      email: formData.data.email
+      email: formData.data.email,
     };
     await update(`users/${username}`, json, {}, "patch");
     // console.log("JOBLY API token", JoblyApi.token);
@@ -69,7 +69,7 @@ function Profile({ update }) {
             disabled={true}
             name="username"
             onChange={handleChange}
-            value={username|| ""}
+            value={username || ""}
             aria-label="username"
           />
         </div>

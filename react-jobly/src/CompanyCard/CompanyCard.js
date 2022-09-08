@@ -1,3 +1,5 @@
+import "./CompanyCard.css"
+
 /** CompanyCard Component
  * 
  * Props: company object with company details
@@ -8,11 +10,13 @@
 function CompanyCard({company}) {
   const {name, description, numEmployees, logoUrl, handle} = company
   return (
-    <div className="Job">
-     {logoUrl && <img alt={handle} src={logoUrl}/>}
+    <div className="Company card">
+      <div className="card-body">
+     {logoUrl && <img className="Company-logo"alt={handle} src={logoUrl}/>}
      <h4>{name}</h4>
      <p>{description}</p>
      {/* <p>{numEmployees}</p> */}
+    </div>
     </div>
   )
 }
