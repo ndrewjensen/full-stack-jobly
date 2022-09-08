@@ -31,10 +31,10 @@ function Profile({ update }) {
   /** Update form input. */
   function handleChange(evt) {
     const input = evt.target;
-    
-    console.log("Profile handleChange() input",input)
+
+    // console.log("Profile handleChange() input",input)
     setFormData((formData) => ({
-      ...formData, 
+      ...formData,
       data: {
         ...formData.data,
         [input.name]: input.value},
@@ -49,7 +49,8 @@ function Profile({ update }) {
       lastName: formData.data.lastName,
       email: formData.data.email
     };
-    await update(`users/${username}`, json, "patch");
+    await update(`users/${username}`, json, {}, "patch");
+    // console.log("JOBLY API token", JoblyApi.token);
     success = <p>Updated Successfully</p>;
   }
 

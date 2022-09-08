@@ -28,7 +28,7 @@ function Login({ auth }) {
   /** Call parent function and clear form. */
   async function handleSubmit(evt) {
     evt.preventDefault();
-    await auth("auth/token", formData,"post");
+    await auth("auth/token", formData, {}, "post");
     setFormData({});
 
   }

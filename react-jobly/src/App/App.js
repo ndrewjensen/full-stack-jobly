@@ -19,17 +19,25 @@ function App() {
     isLoading: true,
   });
 
-
   //TODO: We haven't needed this yet. remove if continues unused
   const [token, setToken] = useState({
     data: {},
     isLoading: true,
   });
 
+  //
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      console.log("LOCAL STORAGE", localStorage.getItem("token"));
+    }
+
+  })
+  console.log("LOCAL STORAGE", localStorage.getItem("token"));
+
   /** handle login and registration */
-  async function authUser(path, formData, method) {
+  async function authUser(endpoint, formData, params, method) {
     // const { username, password, firstName, lastName, email } = formData;
-    const resp = await JoblyApi.request(`${path}`, formData, method);
+    const resp = await JoblyApi.postOrPatch(endpoint, formData, params, method);
     const decodedToken = jwt_decode(resp.token);
 
     localStorage.setItem("token", decodedToken); //localStorage.getItem("item")
@@ -63,10 +71,6 @@ function App() {
     localStorage.setItem("token", ""); //localStorage.getItem("item")
     JoblyApi.token = "";
   }
-
-  console.log("JOBLY API token", JoblyApi.token);
-  console.log("setUSER user", user);
-  console.log("TOKEN", token);
 
   return (
     <div className="App">

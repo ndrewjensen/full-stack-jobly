@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext} from "react";
+import { Navigate } from "react-router-dom";
+import userContext from "../userContext";
 
 /** Register Component
  *
@@ -11,8 +12,11 @@ import { useNavigate } from "react-router-dom";
  */
 
 function Register({ auth }) {
+
   const [formData, setFormData] = useState({});
-  const navigate = useNavigate();
+
+  const { username } = useContext(userContext);
+  if (username) return <Navigate to={"/"} />;
 
   /** Update form input. */
   function handleChange(evt) {
@@ -26,9 +30,7 @@ function Register({ auth }) {
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
-    auth("auth/register", formData, "post");
-    //FIXME: fix this navigate bug to match login behavior
-    navigate("/");
+    auth("auth/register", formData, {}, "post");
   }
 
   return (

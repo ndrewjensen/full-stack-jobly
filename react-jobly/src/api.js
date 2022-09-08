@@ -18,23 +18,23 @@ class JoblyApi {
     "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
     "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
 
-    /** get anything available from backend API
-     * args:
-     * -endpoint: url excluding baseurl as string
-     * -data: obj of json data to include with request, default {}
-     * -method: api req method as string defaults to "get"
-     * 
-     * returns api response
-     */
-    
+  /** get anything available from backend API
+   * args:
+   * -endpoint: url excluding baseurl as string
+   * -data: obj of json data to include with request, default {}
+   * -method: api req method as string defaults to "get"
+   *
+   * returns api response
+   */
+
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${JoblyApi.token}` };
     const params = (method === "get")
-        ? data
-        : {};
+      ? data
+      : {};
 
     try {
       return (await axios({ url, method, data, params, headers })).data;
@@ -53,16 +53,23 @@ class JoblyApi {
     let res = await this.request(`companies/${handle}`);
     return res.company;
   }
-  static async postOrPatch(endpoint, data = {}, method = "post") {
-    //FIXME: 
-    console.debug("API POST or Patch Call:", endpoint, data, method);
+
+  /** post or patch anything available from backend API
+   * args:
+   * -endpoint: url excluding baseurl as string
+   * -data: obj of json data to include with request, default {}
+   * -params: url parameter, default {}
+   * -method: api req method as string defaults to "post"
+   *
+   * returns api response
+   */
+  static async postOrPatch(endpoint, data = {}, params = {}, method = "post") {
+    console.debug("API POST or Patch Call:", endpoint, data, params, method);
 
     const url = `${BASE_URL}/${endpoint}`;
+    console.log("LOCAL STORAGE", localStorage.getItem("token")[0]);
     const headers = { Authorization: `Bearer ${JoblyApi.token}` };
-    const params = (method === "get")
-        ? data
-        : {};
-
+    console.log("HEADER", headers);
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
