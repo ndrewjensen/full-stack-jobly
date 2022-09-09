@@ -12,7 +12,7 @@ import Profile from "../Profile/Profile";
  * App -> RoutesList -> { Companies, Jobs, Homepage CompanyPage}
  */
 
-function RoutesList({loginUser, registerUser, updateUser}) {
+function RoutesList({ loginUser, registerUser, updateUser }) {
   return (
     <Routes className="RoutesList">
       <Route path="/" element={<Homepage />} />
@@ -21,7 +21,7 @@ function RoutesList({loginUser, registerUser, updateUser}) {
       <Route path="/companies/:handle" element={<CompanyPage />} />
       <Route path="/register" element={<Register registerUser={registerUser} />} />
       <Route path="/login" element={<Login loginUser={loginUser} />} />
-      <Route path="/profile" element={<Profile updateUser={updateUser} />} />
+      <Route path="/profile" element={<Profile updateUser={updateUser}/>} />
       <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
   );

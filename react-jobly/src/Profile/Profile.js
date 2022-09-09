@@ -4,35 +4,43 @@ import JoblyApi from "../api";
 import userContext from "../userContext";
 import Loading from "../Loading/Loading";
 
+/** Profile component
+ *
+ * props: updateUser()
+ * state: formData, updateStatus
+ *
+ * RoutesList -> Profile
+*/
+
 function Profile({ updateUser }) {
   const [formData, setFormData] = useState({
     data: {},
     isLoading: true,
   });
+  const [updateStatus, setUpdateStatus] = useState({
+    success: false,
+    errors: []
+  });
 
   const { username } = useContext(userContext);
-  let success = false;
 
   useEffect(() => {
     async function getUserDetail() {
-      // console.log("JOBLYAPIT token", JoblyApi.token);
-      console.log("Profile.js useEffect() username", username);
-      const resp = await JoblyApi.request(`users/${username}`);
-      // console.log("RESP DATA", resp.user);
-
-      setFormData({
-        data: resp.user,
-        isLoading: false,
-      });
+      if (username) {
+        const resp = await JoblyApi.getUser(username);
+        setFormData({
+          data: resp.user,
+          isLoading: false,
+        });
+      }
     }
     getUserDetail();
   }, [username]);
-
+  //TODO: protect route
   /** Update form input. */
+
   function handleChange(evt) {
     const input = evt.target;
-
-    // console.log("Profile handleChange() input",input)
     setFormData((formData) => ({
       ...formData,
       data: {
@@ -43,6 +51,7 @@ function Profile({ updateUser }) {
   }
 
   /** Call parent function and clear form. */
+
   async function handleSubmit(evt) {
     evt.preventDefault();
     const json = {
@@ -50,15 +59,21 @@ function Profile({ updateUser }) {
       lastName: formData.data.lastName,
       email: formData.data.email,
     };
-    await updateUser(json);
-    // console.log("JOBLY API token", JoblyApi.token);
-    //FIXME:
-    success = <p>Updated Successfully</p>;
+    try {
+      await updateUser(json);
+      setUpdateStatus({
+        success: <p className="Profile-success">Updated Successfully</p>,
+        errors: []
+      });
+    } catch (err) {
+      setUpdateStatus({
+        success: false,
+        errors: err
+      });
+    }
   }
 
   if (formData.isLoading) return <Loading />;
-
-  // let { firstName, lastName, email } = formData.data;
 
   return (
     <div className="Profile">
@@ -104,7 +119,13 @@ function Profile({ updateUser }) {
             aria-label="email"
           />
         </div>
-        {success && success}
+
+        {updateStatus.success}
+        {updateStatus.errors &&
+          <div className="Profile-err">
+            {updateStatus.errors.map(error => <p key={error}>{error}</p>)}
+          </div>}
+
         <button className="btn-primary btn Profile-btn form-text col">
           Save Changes
         </button>

@@ -1,4 +1,4 @@
-import React, { useState, useContext} from "react";
+import React, { useState, useContext } from "react";
 import { Navigate } from "react-router-dom";
 import userContext from "../userContext";
 
@@ -14,6 +14,7 @@ import userContext from "../userContext";
 function Register({ registerUser }) {
 
   const [formData, setFormData] = useState({});
+  const [badRegister, setBadRegister] = useState(false);
 
   const { username } = useContext(userContext);
   if (username) return <Navigate to={"/"} />;
@@ -28,9 +29,13 @@ function Register({ registerUser }) {
   }
 
   /** Call parent function and clear form. */
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    registerUser(formData);
+    try {
+      await registerUser(formData);
+    } catch (err) {
+      setBadRegister(err);
+    }
   }
 
   return (
@@ -88,6 +93,12 @@ function Register({ registerUser }) {
             aria-label="email"
           />
         </div>
+
+        {badRegister &&
+          <div className="Register-err">
+            {badRegister.map(error => <p key={error}>{error}</p>)}
+          </div>}
+
         <button className="btn-primary btn Register-btn form-text col">
           Submit
         </button>

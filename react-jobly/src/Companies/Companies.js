@@ -1,17 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { Navigate } from "react-router-dom";
 
 import SearchForm from "../SearchForm/SearchForm";
 import Loading from "../Loading/Loading";
 import JoblyApi from "../api";
 import CompaniesList from "../CompaniesList/CompaniesList";
-
-import { Navigate } from "react-router-dom";
-
-import React, { useContext } from "react";
 import userContext from "../userContext";
-
-// const { username } = useContext(userContext);
-// if (!username) return <Navigate to={"/"} />;
 
 /** Companies Component
  *

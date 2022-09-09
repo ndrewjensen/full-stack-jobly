@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import userContext from "../userContext";
 
 /** Login Component
@@ -12,9 +12,10 @@ import userContext from "../userContext";
  */
 
 function Login({ loginUser }) {
+
   const [formData, setFormData] = useState({});
-  const navigate = useNavigate();
   const { username } = useContext(userContext);
+  const [incorrectLogin, setIncorrectLogin] = useState(false);
 
   /** Update form input. */
   function handleChange(evt) {
@@ -28,11 +29,15 @@ function Login({ loginUser }) {
   /** Call parent function and clear form. */
   async function handleSubmit(evt) {
     evt.preventDefault();
-    await loginUser(formData);
-    setFormData({});
-
+    try {
+      await loginUser(formData);
+      setFormData({});
+    } catch (err) {
+      setIncorrectLogin(true);
+    }
   }
-  if (username) return <Navigate to={"/"} />
+
+  if (username) return <Navigate to={"/"} />;
 
   return (
     <div className="Login">
@@ -59,6 +64,9 @@ function Login({ loginUser }) {
             autoComplete="on"
           />
         </div>
+
+        {incorrectLogin &&
+          <p className="Login-incorrectLogin">incorrect username/password</p>}
 
         <button className="btn-primary btn Register-btn form-text col">
           Submit

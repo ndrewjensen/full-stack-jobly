@@ -14,38 +14,47 @@ const TOKEN = "tokenStorageId";
 /** App Component
  *
  * App -> Companies -> { Nav, RoutesList}
+ * TODO: update docstring  propr state render , what use effect is
  */
 
+//TODO: login in infinite loop
+
 function App() {
+  const [username, setUsername] = useState("");
+
   const [user, setUser] = useState({
-    data: "",
+    data: {},
     isLoading: true,
   });
 
-  const [token, setToken] = useState({
-    data: "",
-    isLoading: true,
-  });
+  const [token, setToken] = useState("");
+
+  //TODO: user api call here; prevent rendering of routes before checking if user state
 
   useEffect(() => {
     //check for token in local storage on mount
-    if (token.isLoading && localStorage.getItem(TOKEN)) {
+    if (localStorage.getItem(TOKEN)) {
       const localToken = localStorage.getItem(TOKEN);
-      setToken({
-        data: localToken,
-        isLoading: false,
-      });
+      setToken(localToken);
     }
 
     //update user, local storage, and JoblyAPI.token from current token
-    if (token.data) {
-      const decodedToken = jwt_decode(token.data);
-      setUser({
-        data: decodedToken.username,
-        isLoading: false,
-      });
-      localStorage.setItem(TOKEN, token.data);
-      JoblyApi.token = token.data;
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      localStorage.setItem(TOKEN, token);
+      JoblyApi.token = token;
+
+      async function getUserDetail() {
+        if (username) {
+          const resp = await JoblyApi.getUser(username);
+          setUser({
+            data: resp,
+            isLoading: false
+          });
+          setUsername(decodedToken.username);
+        }
+      }
+      getUserDetail();
     }
   }, [token]);
 
@@ -53,48 +62,40 @@ function App() {
 
   async function loginUser(formData) {
     const resp = await JoblyApi.loginUser(formData);
-    setToken({
-      data: resp.token,
-      isLoading: false,
-    });
+    setToken(resp.token);
   }
 
   /** handle register */
 
   async function registerUser(formData) {
     const resp = await JoblyApi.registerUser(formData);
-    setToken({
-      data: resp.token,
-      isLoading: false,
-    });
+    setToken(resp.token);
   }
 
   /** handle update */
 
   async function updateUser(formData) {
-    await JoblyApi.updateUser(user.data, formData);
+    await JoblyApi.updateUser(username.data, formData);
   }
 
   /** logout function resets state of user and token,
    * clears local storage and token property in JoblyApi */
 
   function logOut() {
-    setToken({
-      data: "",
-      isLoading: false,
-    });
+    setToken("");
+    setUsername("");
     setUser({
-      data: "",
-      isLoading: false,
-    });
-    
+      data: {},
+      isLoading: false
+    })
+
     localStorage.removeItem(TOKEN);
     JoblyApi.token = "";
   }
 
   return (
     <div className="App">
-      <userContext.Provider value={{ username: user.data }}>
+      <userContext.Provider value={{ username: username, user: user.data }}>
         <BrowserRouter>
           <Nav logOut={logOut} />
           <RoutesList
