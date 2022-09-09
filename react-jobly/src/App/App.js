@@ -12,9 +12,9 @@ import "./App.css";
 const TOKEN = "tokenStorageId";
 
 /** App Component
- *
+ * Props: none
+ * State: username,user,token,isLoading
  * App -> Companies -> { Nav, RoutesList}
- * TODO: update docstring  propr state render , what use effect is
  */
 
 //TODO: login in infinite loop

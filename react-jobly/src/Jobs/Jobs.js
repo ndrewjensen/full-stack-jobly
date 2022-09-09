@@ -10,9 +10,8 @@ import userContext from "../userContext";
 
 
 /** Jobs Page Component
- *
- * state: jobs
- *
+ * Props:none
+ * State: jobs
  * RoutesList -> Jobs -> Job
  */
 

@@ -1,7 +1,8 @@
 import './Loading.css'
 
 /**Loading component
- *
+ * Props: none
+ * State: none
  * {Companies, Jobs, CompanyPage} -> Loading
  */
 

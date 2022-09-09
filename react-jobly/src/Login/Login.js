@@ -4,10 +4,8 @@ import userContext from "../userContext";
 
 /** Login Component
  *
- * props: login function to call in App
- *
- * state: formData
- *
+ * Props: login function to call in App
+ * State: formData
  * RoutesList -> Login
  */
 

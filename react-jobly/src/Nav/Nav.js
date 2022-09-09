@@ -3,7 +3,8 @@ import { useContext } from "react";
 import userContext from "../userContext";
 
 /** Nav Component
- *
+ * Props: logOut function to call in App
+ * State: none
  * App -> Nav
  */
 

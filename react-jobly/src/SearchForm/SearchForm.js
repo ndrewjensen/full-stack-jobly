@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 
 /** SearchForm Component
- *
  * Props: search()
- *
- * state: data collected from form
- *
+ * State: formData
  * {Companies, Jobs} -> SearchForm
  */
 

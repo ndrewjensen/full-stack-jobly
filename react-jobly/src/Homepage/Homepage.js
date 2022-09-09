@@ -3,7 +3,8 @@ import { useContext } from "react";
 import userContext from "../userContext";
 
 /** Homepage Component
- *
+ * Props: none
+ * State: none
  * RoutesList -> Homepage
  */
 

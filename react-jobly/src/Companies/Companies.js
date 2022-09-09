@@ -8,9 +8,8 @@ import CompaniesList from "../CompaniesList/CompaniesList";
 import userContext from "../userContext";
 
 /** Companies Component
- *
- * state: companies
- *
+ * Props: none
+ * State: companies
  * RoutesList -> Companies -> CompanyCard
  */
 

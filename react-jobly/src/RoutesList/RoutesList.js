@@ -8,7 +8,8 @@ import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 
 /** RoutesList Component
- *
+ * Props: none
+ * State: none
  * App -> RoutesList -> { Companies, Jobs, Homepage CompanyPage}
  */
 

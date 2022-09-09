@@ -2,8 +2,8 @@ import Job from "../Job/Job"
 
 /** JobsList Component
  * 
- * props: jobs array of job objects
- * 
+ * Props: jobs array of job objects
+ * State: none
  * { Jobs, CompanyPage } -> JobsList -> Job
  */
 

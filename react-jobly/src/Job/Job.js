@@ -1,7 +1,6 @@
 /** Job Component
- *
- * state: companies
- *
+ * Props: job
+ * State: none
  * {Jobs, CompanyPage } -> Job
  */
 

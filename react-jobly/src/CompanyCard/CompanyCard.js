@@ -1,9 +1,8 @@
 import "./CompanyCard.css"
 
 /** CompanyCard Component
- * 
  * Props: company object with company details
- * 
+ * State: none
  * Companies -> Company
  */
 

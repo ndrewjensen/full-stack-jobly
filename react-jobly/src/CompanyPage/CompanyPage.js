@@ -8,7 +8,8 @@ import userContext from "../userContext";
 
 
 /** Company Detail Page Component
- *
+ * Props: none
+ * State: company
  * RoutesList -> CompanyPage -> Job
  */
 

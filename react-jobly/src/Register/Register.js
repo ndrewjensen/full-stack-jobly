@@ -4,17 +4,15 @@ import userContext from "../userContext";
 
 /** Register Component
  *
- * props: register function to call in App
- *
- * state: formData
- *
+ * Props: register function to call in App
+ * State: formData, errors
  * RoutesList -> Register
  */
 
 function Register({ registerUser }) {
 
   const [formData, setFormData] = useState({});
-  const [badRegister, setBadRegister] = useState(false);
+  const [errors, setErrors] = useState(false);
 
   const { username } = useContext(userContext);
   if (username) return <Navigate to={"/"} />;
@@ -34,7 +32,7 @@ function Register({ registerUser }) {
     try {
       await registerUser(formData);
     } catch (err) {
-      setBadRegister(err);
+      setErrors(err);
     }
   }
 
@@ -94,9 +92,9 @@ function Register({ registerUser }) {
           />
         </div>
 
-        {badRegister &&
+        {errors &&
           <div className="Register-err">
-            {badRegister.map(error => <p key={error}>{error}</p>)}
+            {errors.map(error => <p key={error}>{error}</p>)}
           </div>}
 
         <button className="btn-primary btn Register-btn form-text col">

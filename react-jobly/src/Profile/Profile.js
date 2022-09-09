@@ -6,9 +6,8 @@ import Loading from "../Loading/Loading";
 
 /** Profile component
  *
- * props: updateUser()
- * state: formData, updateStatus
- *
+ * Props: updateUser() to call in App
+ * State: formData, updateStatus
  * RoutesList -> Profile
 */
 
