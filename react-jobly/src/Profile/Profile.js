@@ -4,7 +4,7 @@ import JoblyApi from "../api";
 import userContext from "../userContext";
 import Loading from "../Loading/Loading";
 
-function Profile({ update }) {
+function Profile({ updateUser }) {
   const [formData, setFormData] = useState({
     data: {},
     isLoading: true,
@@ -50,7 +50,7 @@ function Profile({ update }) {
       lastName: formData.data.lastName,
       email: formData.data.email,
     };
-    await update(`users/${username}`, json, {}, "patch");
+    await updateUser(json);
     // console.log("JOBLY API token", JoblyApi.token);
     success = <p>Updated Successfully</p>;
   }

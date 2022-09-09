@@ -4,14 +4,14 @@ import userContext from "../userContext";
 
 /** Login Component
  *
- * props: auth function to call in App
+ * props: login function to call in App
  *
  * state: formData
  *
  * RoutesList -> Login
  */
 
-function Login({ auth }) {
+function Login({ loginUser }) {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   const { username } = useContext(userContext);
@@ -28,7 +28,7 @@ function Login({ auth }) {
   /** Call parent function and clear form. */
   async function handleSubmit(evt) {
     evt.preventDefault();
-    await auth("auth/token", formData, {}, "post");
+    await loginUser(formData);
     setFormData({});
 
   }

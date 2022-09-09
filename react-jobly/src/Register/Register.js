@@ -4,14 +4,14 @@ import userContext from "../userContext";
 
 /** Register Component
  *
- * props: auth function to call in App
+ * props: register function to call in App
  *
  * state: formData
  *
  * RoutesList -> Register
  */
 
-function Register({ auth }) {
+function Register({ registerUser }) {
 
   const [formData, setFormData] = useState({});
 
@@ -30,7 +30,7 @@ function Register({ auth }) {
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
-    auth("auth/register", formData, {}, "post");
+    registerUser(formData);
   }
 
   return (

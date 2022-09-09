@@ -26,7 +26,7 @@ function Jobs() {
 
   useEffect(() => {
     async function getjobs() {
-      const resp = await JoblyApi.request("jobs");
+      const resp = await JoblyApi.getAllJobs();
       setjobs({ data: resp.jobs, isLoading: false });
     }
     getjobs();
@@ -37,7 +37,7 @@ function Jobs() {
   /** makes API call for jobs title from form search term */
   async function search(formData) {
     const { searchTerm } = formData;
-    const resp = await JoblyApi.request("jobs", { title: searchTerm });
+    const resp = await JoblyApi.searchJobs(searchTerm);
     setjobs({ data: resp.jobs, isLoading: false });
   }
 

@@ -45,6 +45,15 @@ class JoblyApi {
 
   // Individual API routes
 
+  /** Get all companies
+ * returns an array of company objects
+ */
+
+  static async getAllCompanies() {
+    let res = await this.request(`companies/`);
+    return res;
+  }
+
   /** Get details on a company by handle. */
 
   static async getCompany(handle) {
@@ -52,31 +61,62 @@ class JoblyApi {
     return res.company;
   }
 
-  //TODO: make smaller API methods like getCompany
-
-  /** post or patch anything available from backend API
-   * args:
-   * -endpoint: url excluding baseurl as string
-   * -data: obj of json data to include with request, default {}
-   * -params: url parameter, default {}
-   * -method: api req method as string defaults to "post"
-   *
-   * returns api response
+  /** Get companies by searchTerm
+   * returns an array of company objects
    */
 
-  static async postOrPatch(endpoint, data = {}, params = {}, method = "post") {
-    console.debug("API POST or Patch Call:", endpoint, data, params, method);
-
-    const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${JoblyApi.token}` };
-    try {
-      return (await axios({ url, method, data, params, headers })).data;
-    } catch (err) {
-      console.error("API Error:", err.response);
-      let message = err.response.data.error.message;
-      throw Array.isArray(message) ? message : [message];
-    }
+  static async searchCompanies(searchTerm) {
+    let res = await this.request("companies", { name: searchTerm });
+    return res;
   }
+
+  /** Get all jobs
+   * returns an array of job objects
+   */
+
+  static async getAllJobs() {
+    let res = await this.request(`jobs/`);
+    return res;
+  }
+
+  /** Get jobs by searchTerm
+   * returns an array of job objects
+  */
+
+  static async searchJobs(searchTerm) {
+    let res = await this.request("jobs", { title: searchTerm });
+    return res;
+  }
+
+
+  /** Post request to login user
+   * returns user token
+   */
+
+  static async loginUser(data) {
+    let res = await this.request("auth/token", data, "post");
+    return res;
+  }
+
+  /** Post request to register user
+   * returns user information and user token
+   */
+
+  static async registerUser(data) {
+    let res = await this.request("auth/register", data, "post");
+    return res;
+  }
+
+  /** Update user information
+   * returns user information
+   */
+
+  static async updateUser(username, data) {
+    let res = await this.request(`users/${username}`, data, "patch");
+    return res;
+  }
+
+
 }
 
 export default JoblyApi;

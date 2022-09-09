@@ -16,7 +16,7 @@ import React, { useState, useEffect } from "react";
 
 function App() {
   const [user, setUser] = useState({
-    //combine with logic in the useEffect to update the initial value to 
+    //combine with logic in the useEffect to update the initial value to
     //local if available
     data: "",
     isLoading: true,
@@ -24,7 +24,7 @@ function App() {
 
   //TODO: We haven't needed this yet. remove if continues unused
   const [token, setToken] = useState({
-    //combine with logic in the useEffect to update the initial value to 
+    //combine with logic in the useEffect to update the initial value to
     //local if available
     data: {},
     isLoading: true,
@@ -41,12 +41,12 @@ function App() {
       // console.log("In if LOCAL STORAGE", local);
       const decodedToken = jwt_decode(local);
       // console.log("decoded token", decodedToken);
-      
+
       setUser({
         data: decodedToken.username,
         isLoading: false,
       });
-  
+
       setToken({
         data: decodedToken,
         isLoading: false,
@@ -56,14 +56,15 @@ function App() {
 //TODO: add dependency on local storage
   },[])
 
-  // localStorage.setItem("token", "");//untoggle to reset local storage
+  localStorage.setItem("token", "");//untoggle to reset local storage
   // console.log("LOCAL STORAGE", localStorage.getItem("token"));
 
-  /** handle login and registration */
-  async function authUser(endpoint, formData, params, method) {
-    const resp = await JoblyApi.postOrPatch(endpoint, formData, params, method);
+  /** handle login */
+  async function loginUser(formData) {
+    const resp = await JoblyApi.loginUser(formData);
     const decodedToken = jwt_decode(resp.token);
     localStorage.setItem("token", resp.token); //localStorage.getItem("item")
+
     //TODO:after updating dependency in useEffect, setUser and joblyapi update can go
     //update states
     setUser({
@@ -80,6 +81,18 @@ function App() {
     // console.log("JOBLY api token, on login", JoblyApi.token)
   }
 
+  async function registerUser(formData) {
+    const resp = await JoblyApi.registerUser(formData);
+    const decodedToken = jwt_decode(resp.token);
+    localStorage.setItem("token", resp.token);
+  }
+
+  async function updateUser(formData) {
+    const resp = await JoblyApi.updateUser(user.data, formData);
+    const decodedToken = jwt_decode(resp.token);
+    localStorage.setItem("token", resp.token);
+  }
+
   /** logout function resets state of user and token,
    * clears local storage and token property in JoblyApi */
   function logOut() {
@@ -92,7 +105,7 @@ function App() {
       isLoading: false,
     });
     //TODO:use localStorage.removeItem
-    localStorage.setItem("token", ""); //localStorage.getItem("item")
+    // localStorage.setItem("token", ""); //localStorage.getItem("item")
     JoblyApi.token = "";
   }
 
@@ -101,7 +114,10 @@ function App() {
       <userContext.Provider value={{ username: user.data }}>
         <BrowserRouter>
           <Nav logOut={logOut} />
-          <RoutesList auth={authUser} />
+          <RoutesList
+          loginUser={loginUser}
+          registerUser={registerUser}
+          updateUser={updateUser}/>
         </BrowserRouter>
       </userContext.Provider>
     </div>

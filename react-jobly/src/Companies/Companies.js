@@ -29,7 +29,7 @@ function Companies() {
 
   useEffect(() => {
     async function getCompanies() {
-      const resp = await JoblyApi.request("companies");
+      const resp = await JoblyApi.getAllCompanies();
       setCompanies({ data: resp.companies, isLoading: false });
     }
     getCompanies();
@@ -41,7 +41,7 @@ function Companies() {
   /** makes API call for companies name from form search term */
   async function search(formData) {
     const { searchTerm } = formData;
-    const resp = await JoblyApi.request("companies", { name: searchTerm });
+    const resp = await JoblyApi.searchCompanies(searchTerm);
     setCompanies({ data: resp.companies, isLoading: false });
   }
 
