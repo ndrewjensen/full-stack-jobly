@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { Navigate } from "react-router-dom";
 
 import JoblyApi from "../api";
 import userContext from "../userContext";
@@ -12,8 +13,9 @@ import Loading from "../Loading/Loading";
 */
 
 function Profile({ updateUser }) {
+  const { username, user } = useContext(userContext);
   const [formData, setFormData] = useState({
-    data: {},
+    data: user,
     isLoading: true,
   });
   const [updateStatus, setUpdateStatus] = useState({
@@ -21,21 +23,9 @@ function Profile({ updateUser }) {
     errors: []
   });
 
-  const { username } = useContext(userContext);
-
-  useEffect(() => {
-    async function getUserDetail() {
-      if (username) {
-        const resp = await JoblyApi.getUser(username);
-        setFormData({
-          data: resp.user,
-          isLoading: false,
-        });
-      }
-    }
-    getUserDetail();
-  }, [username]);
-  //TODO: protect route
+  
+  if (!username) return <Navigate to={"/"} />;
+  
   /** Update form input. */
 
   function handleChange(evt) {
@@ -72,8 +62,6 @@ function Profile({ updateUser }) {
     }
   }
 
-  if (formData.isLoading) return <Loading />;
-
   return (
     <div className="Profile">
       <form onSubmit={handleSubmit}>
@@ -84,7 +72,7 @@ function Profile({ updateUser }) {
             disabled={true}
             name="username"
             onChange={handleChange}
-            value={username || ""}
+            value={formData.data.user.username || ""}
             aria-label="username"
           />
         </div>
@@ -94,7 +82,7 @@ function Profile({ updateUser }) {
             id="firstName"
             name="firstName"
             onChange={handleChange}
-            value={formData.data.firstName || ""}
+            value={formData.data.user.firstName || ""}
             aria-label="first name"
           />
         </div>
@@ -104,7 +92,7 @@ function Profile({ updateUser }) {
             id="lastName"
             name="lastName"
             onChange={handleChange}
-            value={formData.data.lastName || ""}
+            value={formData.data.user.lastName || ""}
             aria-label="last name"
           />
         </div>
@@ -114,7 +102,7 @@ function Profile({ updateUser }) {
             id="email"
             name="email"
             onChange={handleChange}
-            value={formData.data.email || ""}
+            value={formData.data.user.email || ""}
             aria-label="email"
           />
         </div>
