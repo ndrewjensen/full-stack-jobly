@@ -52,6 +52,7 @@ function Profile({ updateUser }) {
     };
     await updateUser(json);
     // console.log("JOBLY API token", JoblyApi.token);
+    //FIXME:
     success = <p>Updated Successfully</p>;
   }
 
