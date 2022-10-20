@@ -7,7 +7,7 @@ import "./CompanyCard.css"
  */
 
 function CompanyCard({company}) {
-  const {name, description, numEmployees, logoUrl, handle} = company
+  const {name, description, /* numEmployees, */ logoUrl, handle} = company
   return (
     <div className="Company card">
       <div className="card-body">
